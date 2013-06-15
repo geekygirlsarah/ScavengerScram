@@ -3,6 +3,8 @@
  * Mobile interacting script
  * Pass in a command, it returns XML
  */
+require_once("class.auth.php");
+
 
 if(!isset($_POST['command']) || $_POST['command'] == "") {
 	die("Didn't pass in a required command.");
