@@ -26,8 +26,9 @@ public class LoginActivity extends Activity {
 	 * TODO: remove after connecting to a real authentication system.
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+			"foo@example.com:hello", "bar@example.com:world", "sarah@sarah.com:hi", "abbey@abbey.com:hi" };
 
+	//public final static String USERNAME = "username";
 	/**
 	 * The default email to populate the email field with.
 	 */
@@ -92,6 +93,12 @@ public class LoginActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
+	}
+
+	public void saveResults() {
+		Intent intent = getIntent();
+		intent.putExtra(IntentConstants.USERNAME, mEmail);
+		setResult(1, intent);
 	}
 
 	/**
@@ -226,8 +233,9 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
+				saveResults();
 				finish();
-				
+
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
