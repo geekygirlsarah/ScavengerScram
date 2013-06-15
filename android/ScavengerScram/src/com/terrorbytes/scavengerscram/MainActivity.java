@@ -1,15 +1,20 @@
 package com.terrorbytes.scavengerscram;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.terrorbytes.scavengerscram.model.Game;
 
 public class MainActivity extends Activity {
 
+	private static ArrayList<Game> games;
+	
 	TextView hiUsernameLabel;
 	//public final static String USERNAME = "username";
 	//public final static String GAME_CODE = "GAME_CODE";
@@ -22,11 +27,16 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		games = new ArrayList<Game>();
 		hiUsernameLabel = (TextView) findViewById(R.id.hiUsernameLabel);
 		
 		Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
 		startActivity(loginIntent);
+	}
+	
+	public int gameCount()
+	{
+		return games.size();
 	}
 
 	@Override
