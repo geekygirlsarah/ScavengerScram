@@ -6,13 +6,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
+	
+	TextView hiUsernameLabel;
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		hiUsernameLabel = (TextView) findViewById(R.id.hiUsernameLabel);
+		
+		Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+		startActivity(loginIntent);
 	}
 
 	@Override
@@ -22,12 +30,12 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-//	public void sendMessage(View view) {
-//		
-//		Intent intent = new Intent(this, DisplayMessageActivity.class);
-//		EditText editText = (EditText) findViewById(R.id.usernameEditText);
-//		String message = editText.getText().toString();
-//		intent.putExtra(EXTRA_MESSAGE, message);
-//	}
+	public void sendMessage(View view) {
+		
+		Intent intent = new Intent(this, LoginActivity.class);
+		EditText editText = (EditText) findViewById(R.id.email);
+		String message = editText.getText().toString();
+		intent.putExtra(EXTRA_MESSAGE, message);
+	}
 
 }
