@@ -4,11 +4,11 @@
  * Pass in a command, it returns XML
  */
 
-if(!isset($_GET['command']) || $_GET['command'] == "") {
+if(!isset($_POST['command']) || $_POST['command'] == "") {
 	die("Didn't pass in a required command.");
 }
 
-$command = $_GET['command'];
+$command = $_POST['command'];
 
 $writer = new XMLWriter();
 //lets store our XML into the memory so we can output it later
@@ -27,8 +27,22 @@ $writer->startElement('ScavengerScram');
 
 switch($command) {
 	case "login":
-		$writer->startElement("login");
+		$user = $_POST['username'];
+		$pass = $_POST['password'];
+		
+		$auth = new Auth();
+		$result = $auth->login($user, $pass);
+		
+		$writer->startElement("LoginResult");
+		if($result == -1) {
+			$writer->writeElement("LoginAuth","fail");
+			$writer->writeElement("player_id", $result);
+		}
+		else {
+			$writer->writeElement("LoginAuth","pass");
+		}
 		$writer->endElement();
+
 		break;
 	default:
 		$result = "error";	
