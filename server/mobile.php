@@ -38,10 +38,10 @@ switch($command) {
 		$writer->startElement("LoginResult");
 		if($result == -1) {
 			$writer->writeElement("LoginAuth","fail");
-			$writer->writeElement("player_id", $result);
 		}
 		else {
 			$writer->writeElement("LoginAuth","pass");
+			$writer->writeElement("player_id", $result);
 		}
 		$writer->endElement();
 
