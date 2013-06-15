@@ -5,14 +5,24 @@
 
 class Player {
 	
+	public $id;
+	public $username;
+	public $email;
+	public $password;  // SHA1 version
 	
-	
-	function getID() {
+	public function getID() {
 		return id;
 	}
 	
+	public function getUsername() {
+		return username;
+	}
 	
+	public function getEmail() {
+		
+	}
 	
+
 }
 
 ?>
