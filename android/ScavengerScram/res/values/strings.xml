@@ -12,5 +12,10 @@
     <string name="past">Completed Games</string>
     <string name="current">Current Game</string>
     <string name="profile">Profile</string>
+    <string name="title_activity_join">Join a Game!</string>
+    <string name="enterCode">Please enter your code below</string>
+    <string name="submit">Submit</string>
+    <string name="countdown">Countdown to Start!!!</string>
+    <string name="startingLocation">Starting Location</string>
 
 </resources>

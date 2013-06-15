@@ -26,7 +26,7 @@ public class LoginActivity extends Activity {
 	 * TODO: remove after connecting to a real authentication system.
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world", "sarah@sarah.com:hi", "abbey@abbey.com:hi" };
+			"foo@example.com:hello", "bar@example.com:world", "sarah@sarah.com:hello", "abbey@abbey.com:hello" };
 
 	public final static String USERNAME = "username";
 	/**
