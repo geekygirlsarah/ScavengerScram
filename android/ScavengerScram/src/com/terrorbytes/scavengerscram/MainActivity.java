@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	TextView hiUsernameLabel;
-	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+	public final static String USERNAME = "username";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,7 +20,20 @@ public class MainActivity extends Activity {
 		hiUsernameLabel = (TextView) findViewById(R.id.hiUsernameLabel);
 		
 		Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
-		startActivity(loginIntent);
+		
+		loginIntent.putExtra(USERNAME, USERNAME);
+		startActivityForResult(loginIntent, 1);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		if(data.getExtras().containsKey(USERNAME))
+		{
+			String username = data.getExtras().getString(USERNAME);
+			hiUsernameLabel.setText("hi" + username);
+		}
 	}
 
 	@Override
@@ -30,12 +43,12 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public void sendMessage(View view) {
-		
-		Intent intent = new Intent(this, LoginActivity.class);
-		EditText editText = (EditText) findViewById(R.id.email);
-		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-	}
+//	public void sendMessage(View view) {
+//		
+//		Intent intent = new Intent(this, LoginActivity.class);
+//		EditText editText = (EditText) findViewById(R.id.email);
+//		String message = editText.getText().toString();
+//		intent.putExtra(EXTRA_MESSAGE, message);
+//	}
 
 }
