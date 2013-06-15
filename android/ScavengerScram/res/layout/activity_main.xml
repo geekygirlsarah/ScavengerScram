@@ -23,34 +23,33 @@
         android:layout_marginTop="47dp"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/currentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/current" />
-
-        <Button
-            android:id="@+id/joinButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:onClick="OnClickJoin"
-            android:text="@string/join" />
-
-        <Button
-            android:id="@+id/pastButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="@string/past" />
-
-        <Button
-            android:id="@+id/profileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/profile" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/hiUsernameLabel"
+        android:layout_toLeftOf="@+id/profileButton"
+        android:onClick="OnClickJoin"
+        android:text="@string/join" />
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/joinButton"
+        android:layout_alignBottom="@+id/joinButton"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="@string/profile" />
+
+    <TwoLineListItem
+        android:id="@+id/twoLineListItem1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="160dp"
+        android:layout_toRightOf="@+id/hiUsernameLabel" />
 
 </RelativeLayout>
