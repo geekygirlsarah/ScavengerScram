@@ -16,7 +16,6 @@ public class MainActivity extends Activity {
 
 	String username;
 	String gameCode;
-	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	String playerName;
 	
 	@Override
@@ -57,12 +56,5 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public void sendMessage(View view) {
-		
-		Intent intent = new Intent(this, LoginActivity.class);
-		EditText editText = (EditText) findViewById(R.id.email);
-		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-	}
 
 }
