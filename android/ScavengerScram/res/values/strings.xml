@@ -8,7 +8,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="signup">Sign Up!</string>
-    <string name="join">Join a Game!</string>
+    <string name="join">Join</string>
     <string name="past">Completed Games</string>
     <string name="current">Current Game</string>
     <string name="profile">Profile</string>
