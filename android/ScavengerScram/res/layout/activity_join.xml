@@ -8,25 +8,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".JoinActivity" >
 
-    <EditText
-        android:id="@+id/codeEditText"
+    <TextView
+        android:id="@+id/playerNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="136dp"
-        android:ems="10"
-        android:inputType="text" >
+        android:layout_below="@+id/codeEditText"
+        android:layout_marginTop="17dp"
+        android:text="@string/playerName" />
 
-        <requestFocus />
-    </EditText>
+    <EditText
+        android:id="@+id/playerNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/codeEditText"
+        android:layout_below="@+id/playerNameLabel"
+        android:layout_marginTop="26dp"
+        android:ems="10" 
+        android:inputType="text" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/enterLabel"
+        android:layout_below="@+id/playerNameEditText"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
         android:onClick="OnClickSubmit"
         android:text="@string/submit" />
 
@@ -34,9 +40,19 @@
         android:id="@+id/enterLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/codeEditText"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
+        android:layout_marginTop="49dp"
         android:text="@string/enterCode" />
+
+    <EditText
+        android:id="@+id/codeEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enterLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="text" />
 
 </RelativeLayout>

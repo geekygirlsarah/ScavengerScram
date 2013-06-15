@@ -17,9 +17,12 @@ public class MainActivity extends Activity {
 
 	TextView hiUsernameLabel;
 	public final static String USERNAME = "username";
-	public final static String GAME_CODE = "GAME_CODE";
+	//public final static String GAME_CODE = "GAME_CODE";
 
+	String username;
 	String gameCode;
+	String playerName;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,12 +41,13 @@ public class MainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data.getExtras().containsKey(USERNAME)) {
-			String username = data.getExtras().getString(USERNAME);
+			username = data.getExtras().getString(USERNAME);
 			hiUsernameLabel.setText("hi" + username);
 		}
-		else if(data.getExtras().containsKey(GAME_CODE))
+		else if(data.getExtras().containsKey(IntentConstants.GAME_CODE))
 		{
-			gameCode = data.getExtras().getString(GAME_CODE);
+			gameCode = data.getExtras().getString(IntentConstants.GAME_CODE);
+			playerName = data.getExtras().getString(IntentConstants.PLAYER_NAME);
 			System.out.println(gameCode);
 		}
 	}
