@@ -14,38 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/loginLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login" />
-
-        <TextView
-            android:id="@+id/usernameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username" />
-
-        <EditText
-            android:id="@+id/usernameEditText"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="_____" />
-
-        <TextView
-            android:id="@+id/passwordLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/password" />
-
-        <EditText
-            android:id="@+id/passwordEditText2"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="*****" />
     </LinearLayout>
 
     <Button
