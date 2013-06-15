@@ -18,10 +18,6 @@ import android.util.Log;
 import com.terrorbytes.scavengerscram.io.ScavengerScramIOUtils;
 import com.terrorbytes.scavengerscram.net.ScavengerScramHttpUtils;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6a973fc6cbc0e5c23a9f8664fb2aa04b45527b00
 /**
  * Asynchronous task to send an HTTP Request in a background thread
  * 
