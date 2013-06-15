@@ -1,5 +1,12 @@
 package com.terrorbytes.scavengerscram;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -203,15 +210,18 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserLoginTask extends HttpRequestTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 
 			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
+				List<NameValuePair> loginParams = new ArrayList<NameValuePair>();
+				loginParams.add(new BasicNameValuePair("username", mEmail));
+				loginParams.add(new BasicNameValuePair("password",mPassword));
+				loginParams.add(new BasicNameValuePair("command","login"));
+				httpPost("", loginParams);
+			} catch (IOException e) {
 				return false;
 			}
 
