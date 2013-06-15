@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 15, 2013 at 11:48 AM
+-- Generation Time: Jun 15, 2013 at 12:38 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.6
 
@@ -82,7 +82,8 @@ CREATE TABLE IF NOT EXISTS `participation` (
 
 CREATE TABLE IF NOT EXISTS `players` (
   `player_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID of the player',
-  `name` varchar(30) NOT NULL COMMENT 'Name of the player',
+  `email` varchar(50) NOT NULL COMMENT 'Email address of the player',
+  `username` varchar(30) NOT NULL COMMENT 'Name of the player',
   `password` varchar(20) NOT NULL COMMENT 'SHA1 of their password',
   PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
