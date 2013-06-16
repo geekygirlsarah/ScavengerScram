@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
+import com.terrorbytes.scavengerscram.ScavengerScramConstants;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,7 +32,7 @@ import android.widget.TextView;
  * well.
  */
 public class LoginActivity extends Activity
-{
+{	
 	/**
 	 * The default email to populate the email field with.
 	 */
@@ -206,31 +207,27 @@ public class LoginActivity extends Activity
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends HttpRequestTask<Void, Void, Boolean> {
+	public class UserLoginTask extends HttpRequestTask<Void, Void, Boolean>
+	{
 		@Override
 		protected Boolean doInBackground(Void... params)
 		{
 			// Attempt authentication against a network service.
-
 			boolean valid = false;
-			String response = "";
+			String response = null;
 			try 
 			{
 				List<NameValuePair> loginParams = new ArrayList<NameValuePair>();
 				loginParams.add(new BasicNameValuePair("username", mEmail));
-				loginParams.add(new BasicNameValuePair("password",mPassword));
-				loginParams.add(new BasicNameValuePair("command","login"));
-				response = httpPost("http://www.scavengerscram.com/mobile.php", loginParams);
+				loginParams.add(new BasicNameValuePair("password", mPassword));
+				loginParams.add(new BasicNameValuePair("command", ScavengerScramConstants.LOGIN_COMMAND));
+				response = httpPost(ScavengerScramConstants.SCAVENGERSCRAM_URL, loginParams);
 			} 
 			catch (IOException e) {}
 
 			if(response == null) return false;
 
-
-			try 
-			{
-				valid = ScavengerScramParseUtil.toUserLogin(response).isValid();
-			} 
+			try {valid = ScavengerScramParseUtil.toUserLogin(response).isValid();} 
 			catch (XPathExpressionException e) {}
 
 			return Boolean.valueOf(valid);
