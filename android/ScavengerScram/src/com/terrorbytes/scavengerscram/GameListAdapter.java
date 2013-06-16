@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.terrorbytes.scavengerscram.model.Game;
 
-public class GameListAdapter extends BaseAdapters {
+public class GameListAdapter extends BaseAdapter {
 	private static ArrayList<Game> games;
 	private LayoutInflater mInflater;
 	
