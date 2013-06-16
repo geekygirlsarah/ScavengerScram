@@ -27,7 +27,7 @@ public class ScavengerScramParseUtil
 	private static final String USERLOGIN_NAME_EXPR       = BASE + "/LoginResult/name";
 	
 	// Game
-	private static final String GAME_LIST_EXPR        = "ScavengerScram/game";
+	private static final String GAME_LIST_EXPR        = "ScavengerScram/Games/Game";
 	private static final String GAME_GAMEID_EXPR      = "//game_id";
 	private static final String GAME_NAME_EXPR        = "//name";
 	private static final String GAME_DESCRIPTION_EXPR = "//description";
@@ -38,6 +38,7 @@ public class ScavengerScramParseUtil
 	
 	// Player
 	private static final String PLAYER_PLAYERID_EXPR  = BASE + "/CreatePlayer/player_id";
+	
 	// Clue
 	
 	
