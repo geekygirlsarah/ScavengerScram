@@ -10,10 +10,22 @@ public class Game {
 	private boolean locked;
 	private Date startTime;
 	private Date endTime;
-	
+	private String master;
+
 	public Game(){}
 	
-	public Game(int gameId, String name, String description, 
+	/**
+	 * 
+	 * @param gameId
+	 * @param master
+	 * @param name
+	 * @param description
+	 * @param gameCode
+	 * @param locked
+	 * @param startTime
+	 * @param endTime
+	 */
+	public Game(int gameId, String master, String name, String description, 
 			String gameCode, boolean locked, Date startTime, Date endTime) {
 		super();
 		this.gameId = gameId;
@@ -23,6 +35,15 @@ public class Game {
 		this.locked = locked;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.master = master;
+	}
+	
+	public String getMaster() {
+		return master;
+	}
+
+	public void setMaster(String master) {
+		this.master = master;
 	}
 	
 	public int getGameId() {
