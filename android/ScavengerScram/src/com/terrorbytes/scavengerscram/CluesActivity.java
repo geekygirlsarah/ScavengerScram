@@ -1,9 +1,13 @@
 package com.terrorbytes.scavengerscram;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -12,17 +16,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.terrorbytes.scavengerscram.model.Clue;
+import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 
-public class CluesActivity extends Activity {
-
-	ArrayList<Clue> clues;
+public class CluesActivity extends Activity 
+{
+	List<Clue> clues;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clues);
 
-		clues = getClues();
+		getClues();
 
 		final ListView lv1 = (ListView) findViewById(R.id.clueList);
 		lv1.setAdapter(new ClueListAdapter(this, clues));
@@ -45,31 +51,47 @@ public class CluesActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.clues, menu);
 		return true;
 	}
 	
-	public ArrayList<Clue> getClues()
+	public void getClues()
 	{
-		ArrayList<Clue> results = new ArrayList<Clue>();
-		Clue c1 = new Clue();
-		c1.setTitle("By a ship");
-		c1.setDescription("A ship ahoy is not made a chips.");
-		results.add(c1);
+		if(true) // Add checks
+		{
+			//new GetCluesTask().execute(new Integer(1));
+		}
+	}
+	
+	private class GetCluesTask extends HttpRequestTask<Integer, Void, List<Clue>>
+	{
+		@Override
+		protected List<Clue> doInBackground(Integer... args) 
+		{
+			String response = null;
+			try 
+			{
+				List<NameValuePair> loginParams = new ArrayList<NameValuePair>();
+				loginParams.add(new BasicNameValuePair("id", args[0].toString()));
+				loginParams.add(new BasicNameValuePair("command", ScavengerScramConstants.CLUES_COMMAND));
+				response = httpPost(ScavengerScramConstants.SCAVENGERSCRAM_URL, loginParams);
+			} 
+			catch (IOException e) {}
+			
+			if(response == null) return new ArrayList<Clue>(); // Empty list
+				
+			return ScavengerScramParseUtil.parseToClues(response);
+		}
 		
-		Clue c2 = new Clue();
-		c2.setTitle("Poop deck");
-		c2.setDescription("A broom and mop and swab the ...");
-		results.add(c2);
+		@Override
+		protected void onPostExecute(final List<Clue> cluesResult)
+		{
+			clues = cluesResult;
+		}
 		
-		Clue c3 = new Clue();
-		c3.setTitle("The Sea Master");
-		c3.setDescription("A great place to go, the sea horses blow");
-		results.add(c3);
-		
-		return results;
 	}
 
 }

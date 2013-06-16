@@ -1,6 +1,6 @@
 package com.terrorbytes.scavengerscram;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.terrorbytes.scavengerscram.model.Clue;
 
 public class ClueListAdapter extends BaseAdapter {
-	private ArrayList<Clue> clues;
+	private List<Clue> clues;
 	private LayoutInflater mInflater;
 	
-	public ClueListAdapter(Context context, ArrayList<Clue> clues)
+	public ClueListAdapter(Context context, List<Clue> clues)
 	{
 		this.clues = clues;
 		mInflater = LayoutInflater.from(context);
