@@ -14,6 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.terrorbytes.scavengerscram.model.Clue;
 import com.terrorbytes.scavengerscram.model.Game;
 import com.terrorbytes.scavengerscram.model.UserLogin;
 
@@ -40,9 +41,12 @@ public class ScavengerScramParseUtil
 	private static final String PLAYER_PLAYERID_EXPR  = BASE + "/CreatePlayer/player_id";
 	
 	// Clue
-	
-	
-	// Answer
+	private static final String CLUE_LIST_EXPR        = "ScavengerScram/Clues/Clue";
+	private static final String CLUE_CLUEID_EXPR      = "//clue_id";
+	private static final String CLUE_NUMBER_EXPR      = "//number";
+	private static final String CLUE_TITLE_EXPR       = "//title";
+	private static final String CLUE_DESCRIPTION_EXPR = "//description";
+	private static final String CLUE_GAMEID_EXPR      = "//game_id";
 	
 	public static Date timestampToDate(String s)
 	{
@@ -53,6 +57,22 @@ public class ScavengerScramParseUtil
 		}
 		
 		return null;
+	}
+	
+	public static List<Clue> parseToClues(String xml)
+	{
+		List<Clue> clueList = new ArrayList<Clue>();
+		
+		try 
+		{
+			XPath xpath = XPathFactory.newInstance().newXPath();
+			NodeList nodes = (NodeList) xpath.evaluate(CLUE_LIST_EXPR, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+			
+			for(int i = 0; i < nodes.getLength(); i++) clueList.add(toClue(nodes.item(i)));
+		} 
+		catch (XPathExpressionException e) {}
+		
+		return clueList;
 	}
 	
 	public static List<Game> parseToGames(String xml)
@@ -69,6 +89,37 @@ public class ScavengerScramParseUtil
 		catch (XPathExpressionException e) {}
 		
 		return gameList;
+	}
+	
+	private static Clue toClue(Node node) throws XPathExpressionException
+	{
+		// Clue ID
+		String clueIdStr = parseQuietly(node,CLUE_CLUEID_EXPR);
+		
+		Integer clueId = -1;	
+		try{ clueId = Integer.parseInt(clueIdStr);}
+		catch(NumberFormatException e){/*IGNORE*/}
+		
+		// Clue Number
+		String clueNumberStr = parseQuietly(node,CLUE_NUMBER_EXPR);
+		
+		Integer clueNumber = -1;	
+		try{ clueNumber = Integer.parseInt(clueNumberStr);}
+		catch(NumberFormatException e){/*IGNORE*/}
+		
+		// Game ID
+		String gameIdStr = parseQuietly(node, CLUE_GAMEID_EXPR);
+		
+		Integer gameId = -1;	
+		try{ gameId = Integer.parseInt(gameIdStr);}
+		catch(NumberFormatException e){/*IGNORE*/}
+		
+		return new Clue( 
+				clueId, 
+				clueNumber, 
+				parseQuietly(node,CLUE_TITLE_EXPR), 
+				parseQuietly(node,CLUE_DESCRIPTION_EXPR), 
+				gameId);		
 	}
 	
 	private static Game toGame(Node node) throws XPathExpressionException

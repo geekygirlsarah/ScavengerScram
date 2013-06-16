@@ -2,6 +2,7 @@ package com.terrorbytes.scavengerscram.model;
 
 public class Clue {
   private int clueId;
+  	private int clueNumber;
 	private String title;
 	private String description;
 	private int gameId;
@@ -11,18 +12,30 @@ public class Clue {
 	}
 
 	/**
+	 * 
 	 * @param clueId
+	 * @param clueNumber
 	 * @param title
 	 * @param description
 	 * @param gameId
 	 */
-	public Clue(int clueId, String title, String description, int gameId) {
+	public Clue(int clueId, int clueNumber, String title, String description, int gameId) {
 		super();
 		this.clueId = clueId;
 		this.title = title;
 		this.description = description;
 		this.gameId = gameId;
+		this.clueNumber = clueNumber;
 	}
+	
+	public int getClueNumber() {
+		return clueNumber;
+	}
+
+	public void setClueNumber(int clueNumber) {
+		this.clueNumber = clueNumber;
+	}
+
 
 	/**
 	 * @return the clueId
