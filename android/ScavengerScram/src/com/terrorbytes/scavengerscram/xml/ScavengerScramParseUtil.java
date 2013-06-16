@@ -52,7 +52,7 @@ public class ScavengerScramParseUtil
 	{
 		int start = xml.indexOf('<');
 		int end = xml.lastIndexOf('>');
-		return xml.substring(start == -1 ? 0 : start, end == -1 ? xml.length() : end);
+		return xml.substring(start == -1 ? 0 : start, end == -1 ? xml.length() : end + 1);
 	}
 	
 	public static Date timestampToDate(String s)
