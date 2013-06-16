@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 
+import android.R;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -31,15 +32,8 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world", "sarah@sarah.com:hi", "abbey@abbey.com:hi" };
-
-	//public final static String USERNAME = "username";
+public class LoginActivity extends Activity
+{
 	/**
 	 * The default email to populate the email field with.
 	 */
