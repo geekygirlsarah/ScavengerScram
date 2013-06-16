@@ -26,7 +26,7 @@ import com.terrorbytes.scavengerscram.net.ScavengerScramHttpUtils;
  */
 public abstract class HttpRequestTask<P,O,A> extends AsyncTask<P,O,A>
 {
-	private static final String DEBUG_TAG = "com.scavengerhack.debug";
+	private static final String DEBUG_TAG = "com.terrorbytes.debug";
 	private static final int DEFAULT_CONNECTION_TIMEOUT = 120000;
 	
 	public static final String HTTP_GET = "GET";
@@ -45,15 +45,11 @@ public abstract class HttpRequestTask<P,O,A> extends AsyncTask<P,O,A>
 			
 			// Setup connection
 			conn = (HttpURLConnection) new URL(url).openConnection();
-			//conn.setReadTimeout(DEFAULT_CONNECTION_TIMEOUT /* milliseconds */);
 			conn.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT /* milliseconds */);
 			conn.setRequestMethod(HTTP_POST);
 			conn.setDoOutput(true); // Needed or we will get a ProtocolException when trying to write
 			conn.setFixedLengthStreamingMode(data.getBytes().length); // Set length of data that we are sending to the server
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			
-			// Connect
-			//conn.connect();
 			
 			// Write POST data
             out = new BufferedOutputStream(conn.getOutputStream());
@@ -79,7 +75,7 @@ public abstract class HttpRequestTask<P,O,A> extends AsyncTask<P,O,A>
 			catch(IOException ioe){/* Do Nothing */}
 			
 			// Disconnect
-			conn.disconnect();
+			if(conn != null) conn.disconnect();
 		}
 	}
 	

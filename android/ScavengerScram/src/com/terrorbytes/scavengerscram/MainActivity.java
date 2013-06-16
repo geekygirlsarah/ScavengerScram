@@ -1,6 +1,7 @@
 package com.terrorbytes.scavengerscram;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,29 +10,28 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.terrorbytes.scavengerscram.model.Game;
 
-public class MainActivity extends Activity {
-
-	ArrayList<Game> games = new ArrayList<Game>();
-
-	TextView hiUsernameLabel;
-	ListView gameListView;
-	// public final static String USERNAME = "username";
-	// public final static String GAME_CODE = "GAME_CODE";
+public class MainActivity extends Activity 
+{
+	List<Game> games = new ArrayList<Game>();
 
 	GameListAdapter gla;
 
 	String username;
 	String gameCode;
 	String playerName;
+	
+	// UI Components
+	TextView hiUsernameLabel;
+	ListView gameListView;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		// games = new ArrayList<Game>();
@@ -43,25 +43,25 @@ public class MainActivity extends Activity {
 
 		gameListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id) {
-
+			public void onItemClick(AdapterView<?> a, View v, int position, long id)
+			{
 				launchClueIntent();
 			}
 		});
 		
-		Intent loginIntent = new Intent(getApplicationContext(),
-				LoginActivity.class);
+		Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
 		startActivityForResult(loginIntent, 1);
 	}
 
-	private void launchClueIntent() {
+	private void launchClueIntent() 
+	{
 		Intent i = new Intent(getApplicationContext(), CluesActivity.class);
-		i.putExtra(IntentConstants.GAME_ID, "0");
+		i.putExtra(IntentConstants.GAME_ID, 0);
 		startActivity(i);
 	}
 
-	private ArrayList<Game> getGames() {
+	private List<Game> getGames()
+	{
 		//ArrayList<Game> results = new ArrayList<Game>();
 
 		Game g1 = new Game();
@@ -83,8 +83,10 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
 		super.onActivityResult(requestCode, resultCode, data);
+		
 		if (data.getExtras().containsKey(IntentConstants.USERNAME)) {
 			username = data.getExtras().getString(IntentConstants.USERNAME);
 			hiUsernameLabel.setText("hi" + username);
@@ -123,13 +125,15 @@ public class MainActivity extends Activity {
 
 	}
 
-	public void OnClickJoin(View view) {
+	public void OnClickJoin(View view)
+	{
 		Intent i = new Intent(getApplicationContext(), JoinActivity.class);
 		startActivityForResult(i, 2);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;

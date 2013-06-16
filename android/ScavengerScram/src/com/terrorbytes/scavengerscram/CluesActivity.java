@@ -21,13 +21,16 @@ import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 public class CluesActivity extends Activity 
 {
 	List<Clue> clues;
+	
+	int gameId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		this.gameId = getIntent().getIntExtra(IntentConstants.GAME_ID, -1);
+				
 		setContentView(R.layout.activity_clues);
-
 		getClues();
 
 		final ListView lv1 = (ListView) findViewById(R.id.clueList);
@@ -62,7 +65,8 @@ public class CluesActivity extends Activity
 	{
 		if(true) // Add checks
 		{
-			//new GetCluesTask().execute(new Integer(1));
+			GetCluesTask getCluesTask = new GetCluesTask();
+			//getCluesTask.execute(Integer.valueOf(this.gameId));
 		}
 	}
 	

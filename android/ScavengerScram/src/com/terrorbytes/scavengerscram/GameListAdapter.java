@@ -1,6 +1,6 @@
 package com.terrorbytes.scavengerscram;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,11 +11,12 @@ import android.widget.TextView;
 
 import com.terrorbytes.scavengerscram.model.Game;
 
-public class GameListAdapter extends BaseAdapter {
-	private static ArrayList<Game> games;
+public class GameListAdapter extends BaseAdapter 
+{
+	private final List<Game> games;
 	private LayoutInflater mInflater;
 	
-	public GameListAdapter(Context context, ArrayList<Game> games)
+	public GameListAdapter(Context context, final List<Game> games)
 	{
 		this.games = games;
 		mInflater = LayoutInflater.from(context);
@@ -33,30 +34,32 @@ public class GameListAdapter extends BaseAdapter {
 	  return position;
 	 }
 
-	 public View getView(int position, View convertView, ViewGroup parent) {
-	  ViewHolder holder;
-	  if (convertView == null) {
-	   convertView = mInflater.inflate(R.layout.custom_row_view, null);
-	   holder = new ViewHolder();
-	   holder.gameName = (TextView) convertView.findViewById(R.id.gameName);
-	   holder.gameDescription = (TextView) convertView.findViewById(R.id.gameDescription);
+	 public View getView(int position, View convertView, ViewGroup parent)
+	 {
+		 ViewHolder holder;
+		 
+		 if (convertView == null) 
+		 {
+		   convertView = mInflater.inflate(R.layout.custom_row_view, null);
+		   holder = new ViewHolder();
+		   holder.gameName = (TextView) convertView.findViewById(R.id.gameName);
+		   holder.gameDescription = (TextView) convertView.findViewById(R.id.gameDescription);
+		   convertView.setTag(holder);
+		 } 
+		 else 
+		 {
+			 holder = (ViewHolder) convertView.getTag();
+		 }
 	  
-
-	   convertView.setTag(holder);
-	  } else {
-	   holder = (ViewHolder) convertView.getTag();
-	  }
-	  
-	  holder.gameName.setText(games.get(position).getName());
-	  holder.gameDescription.setText(games.get(position).getDescription());
-	
-
-	  return convertView;
+		 holder.gameName.setText(games.get(position).getName());
+		 holder.gameDescription.setText(games.get(position).getDescription());
+		 
+		 return convertView;
 	 }
 
-	 static class ViewHolder {
-	  TextView gameName;
-	  TextView gameDescription;
-	  
+	 static class ViewHolder 
+	 {
+		 TextView gameName;
+		 TextView gameDescription;
 	 }
-	}
+}
