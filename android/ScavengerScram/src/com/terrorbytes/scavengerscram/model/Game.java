@@ -11,6 +11,8 @@ public class Game {
 	private Date startTime;
 	private Date endTime;
 	
+	public Game(){}
+	
 	public Game(int gameId, String name, String description, 
 			String gameCode, boolean locked, Date startTime, Date endTime) {
 		super();
