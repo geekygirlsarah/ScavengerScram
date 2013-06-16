@@ -15,7 +15,7 @@
         android:layout_height="fill_parent"
         android:fontFamily="arial"
         android:textSize="18sp" />
-       
+         
        
 
 </RelativeLayout>

@@ -12,7 +12,7 @@
   android:fontFamily="arial"/>
  <TextView android:id="@+id/gameDescription" 
   android:textSize="18sp"
-  android:fontFamily="arial"
+  android:fontFamily="arial"   
   android:layout_width="wrap_content" 
   android:layout_height="wrap_content"/>
 
