@@ -11,13 +11,11 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 
-import android.R;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -222,7 +220,7 @@ public class LoginActivity extends Activity
 				loginParams.add(new BasicNameValuePair("username", mEmail));
 				loginParams.add(new BasicNameValuePair("password",mPassword));
 				loginParams.add(new BasicNameValuePair("command","login"));
-				response = httpPost("", loginParams);
+				response = httpPost("http://www.scavengerscram.com/mobile.php", loginParams);
 			} 
 			catch (IOException e) {}
 
