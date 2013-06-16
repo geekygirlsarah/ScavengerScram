@@ -48,6 +48,13 @@ public class ScavengerScramParseUtil
 	private static final String CLUE_DESCRIPTION_EXPR = "//description";
 	private static final String CLUE_GAMEID_EXPR      = "//game_id";
 	
+	private static String clean(String xml)
+	{
+		int start = xml.indexOf('<');
+		int end = xml.lastIndexOf('>');
+		return xml.substring(start == -1 ? 0 : start, end == -1 ? xml.length() : end);
+	}
+	
 	public static Date timestampToDate(String s)
 	{
 		if(s != null && !s.trim().isEmpty())
@@ -63,14 +70,18 @@ public class ScavengerScramParseUtil
 	{
 		List<Clue> clueList = new ArrayList<Clue>();
 		
-		try 
-		{
-			XPath xpath = XPathFactory.newInstance().newXPath();
-			NodeList nodes = (NodeList) xpath.evaluate(CLUE_LIST_EXPR, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
-			
-			for(int i = 0; i < nodes.getLength(); i++) clueList.add(toClue(nodes.item(i)));
-		} 
-		catch (XPathExpressionException e) {}
+		if(xml != null && !xml.isEmpty())
+		{	
+			xml = clean(xml);
+			try 
+			{
+				XPath xpath = XPathFactory.newInstance().newXPath();
+				NodeList nodes = (NodeList) xpath.evaluate(CLUE_LIST_EXPR, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+				
+				for(int i = 0; i < nodes.getLength(); i++) clueList.add(toClue(nodes.item(i)));
+			} 
+			catch (XPathExpressionException e) {}
+		}
 		
 		return clueList;
 	}
@@ -79,14 +90,18 @@ public class ScavengerScramParseUtil
 	{
 		List<Game> gameList = new ArrayList<Game>();
 		
-		try 
-		{
-			XPath xpath = XPathFactory.newInstance().newXPath();
-			NodeList nodes = (NodeList) xpath.evaluate(GAME_LIST_EXPR, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
-			
-			for(int i = 0; i < nodes.getLength(); i++) gameList.add(toGame(nodes.item(i)));
-		} 
-		catch (XPathExpressionException e) {}
+		if(xml != null && !xml.isEmpty())
+		{	
+			xml = clean(xml);
+			try 
+			{
+				XPath xpath = XPathFactory.newInstance().newXPath();
+				NodeList nodes = (NodeList) xpath.evaluate(GAME_LIST_EXPR, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+				
+				for(int i = 0; i < nodes.getLength(); i++) gameList.add(toGame(nodes.item(i)));
+			} 
+			catch (XPathExpressionException e) {}
+		}
 		
 		return gameList;
 	}
@@ -160,6 +175,10 @@ public class ScavengerScramParseUtil
 	 */
 	public static UserLogin toUserLogin(String xml) throws XPathExpressionException
 	{
+		if(xml == null || xml.isEmpty()) return new UserLogin();
+		
+		xml = clean(xml);
+		
 		String playerIdStr = parseQuietly(xml,USERLOGIN_ID_EXPR);		
 		Integer playerId = -1;
 		

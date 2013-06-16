@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.terrorbytes.scavengerscram.model.Clue;
 
-public class ClueListAdapter extends BaseAdapter {
+public class ClueListAdapter extends BaseAdapter
+{
 	private List<Clue> clues;
 	private LayoutInflater mInflater;
 	

@@ -13,7 +13,7 @@ import com.terrorbytes.scavengerscram.model.Game;
 
 public class GameListAdapter extends BaseAdapter 
 {
-	private final List<Game> games;
+	private List<Game> games;
 	private LayoutInflater mInflater;
 	
 	public GameListAdapter(Context context, final List<Game> games)
@@ -23,7 +23,7 @@ public class GameListAdapter extends BaseAdapter
 	}
 
 	 public int getCount() {
-	  return games.size();
+	  return (games != null) ? games.size() : 0;
 	 }
 
 	 public Object getItem(int position) {

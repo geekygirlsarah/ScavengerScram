@@ -92,8 +92,7 @@ public class MainActivity extends Activity
 			hiUsernameLabel.setText("hi" + username);
 		} else if (data.getExtras().containsKey(IntentConstants.GAME_CODE)) {
 			gameCode = data.getExtras().getString(IntentConstants.GAME_CODE);
-			playerName = data.getExtras()
-					.getString(IntentConstants.PLAYER_NAME);
+			playerName = data.getExtras().getString(IntentConstants.PLAYER_NAME);
 			System.out.println(gameCode);
 		}
 

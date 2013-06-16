@@ -20,37 +20,43 @@ import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 
 public class CluesActivity extends Activity 
 {
-	List<Clue> clues;
-	
-	int gameId;
+	private ListView lv1;	
+	private int gameId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.gameId = getIntent().getIntExtra(IntentConstants.GAME_ID, -1);
-				
+		
+		// Set content view
 		setContentView(R.layout.activity_clues);
-		getClues();
+				
+		// Get game ID from intent
+		this.gameId = getIntent().getIntExtra(IntentConstants.GAME_ID, -1);
+		
+		// Get ListView
+		this.lv1 = (ListView) findViewById(R.id.clueList);
 
-		final ListView lv1 = (ListView) findViewById(R.id.clueList);
-		lv1.setAdapter(new ClueListAdapter(this, clues));
-
-		lv1.setOnItemClickListener(new OnItemClickListener() {
+		// Add on click listener to list view
+		this.lv1.setOnItemClickListener(new OnItemClickListener()
+		{
 			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> a, View v, int position,long id)
+			{
 				// Object o = lv1.getItemAtPosition(position);
 				// Game fullObject = (Game)o;
 				// Toast.makeText(getApplicationContext(), "You have chosen: " +
 				// " " + fullObject.getName(), Toast.LENGTH_LONG).show();
-//				Intent i = new Intent(getApplicationContext(),
-//						CluesActivity.class);
-//				i.putExtra(IntentConstants.GAME_ID, "0");
-//				startActivity(i);
+				//				Intent i = new Intent(getApplicationContext(),
+				//						CluesActivity.class);
+				//i.putExtra(IntentConstants.GAME_ID, "0");
+				//startActivity(i);
 
 			}
 		});
+		
+		// Get list of clues
+		getClues();
 	}
 
 	@Override
@@ -63,10 +69,11 @@ public class CluesActivity extends Activity
 	
 	public void getClues()
 	{
+		
 		if(true) // Add checks
 		{
 			GetCluesTask getCluesTask = new GetCluesTask();
-			//getCluesTask.execute(Integer.valueOf(this.gameId));
+			getCluesTask.execute(Integer.valueOf(this.gameId));
 		}
 	}
 	
@@ -91,9 +98,9 @@ public class CluesActivity extends Activity
 		}
 		
 		@Override
-		protected void onPostExecute(final List<Clue> cluesResult)
+		protected void onPostExecute(List<Clue> cluesResult)
 		{
-			clues = cluesResult;
+			lv1.setAdapter(new ClueListAdapter(CluesActivity.this, cluesResult));
 		}
 		
 	}
