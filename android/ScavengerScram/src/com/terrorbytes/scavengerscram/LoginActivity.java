@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.xpath.XPathExpressionException;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -212,29 +216,32 @@ public class LoginActivity extends Activity {
 	 */
 	public class UserLoginTask extends HttpRequestTask<Void, Void, Boolean> {
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
+		protected Boolean doInBackground(Void... params)
+		{
+			// Attempt authentication against a network service.
 
-			try {
+			boolean valid = false;
+			String response = "";
+			try 
+			{
 				List<NameValuePair> loginParams = new ArrayList<NameValuePair>();
 				loginParams.add(new BasicNameValuePair("username", mEmail));
 				loginParams.add(new BasicNameValuePair("password",mPassword));
 				loginParams.add(new BasicNameValuePair("command","login"));
-				httpPost("", loginParams);
-			} catch (IOException e) {
-				return false;
-			}
+				response = httpPost("", loginParams);
+			} 
+			catch (IOException e) {}
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
+			if(response == null) return false;
 
-			// TODO: register the new account here.
-			return true;
+
+			try 
+			{
+				valid = ScavengerScramParseUtil.toUserLogin(response).isValid();
+			} 
+			catch (XPathExpressionException e) {}
+
+			return Boolean.valueOf(valid);
 		}
 
 		@Override

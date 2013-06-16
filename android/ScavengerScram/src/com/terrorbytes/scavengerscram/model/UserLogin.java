@@ -1,10 +1,18 @@
 package com.terrorbytes.scavengerscram.model;
 
+import android.annotation.SuppressLint;
+
 public class UserLogin 
 {
 	private int id;
 	private String name;
 	private String authResult;
+	
+	@SuppressLint("DefaultLocale")
+	public boolean isValid()
+	{
+		return authResult != null && "pass".equals(authResult.toLowerCase());
+	}
 	
 	public int getId() {
 		return id;
