@@ -229,7 +229,7 @@ public class LoginActivity extends Activity
 
 			try {valid = ScavengerScramParseUtil.toUserLogin(response).isValid();} 
 			catch (XPathExpressionException e) {}
-
+			
 			return Boolean.valueOf(valid);
 		}
 

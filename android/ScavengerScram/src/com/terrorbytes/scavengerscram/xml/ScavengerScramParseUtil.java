@@ -1,12 +1,17 @@
 package com.terrorbytes.scavengerscram.xml;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.terrorbytes.scavengerscram.model.Game;
@@ -15,17 +20,28 @@ import com.terrorbytes.scavengerscram.model.UserLogin;
 public class ScavengerScramParseUtil
 {	
 	private static final String BASE = "//ScavengerScram";
-	private static final String USERLOGIN_AUTHRESULT_EXPR = BASE + "/LoginResult/LoginAuth";
-	private static final String USERLOGIN_ID_EXPR = BASE + "/LoginResult/player_id";
-	private static final String USERLOGIN_NAME_EXPR = BASE + "/LoginResult/name";
 	
-	private static final String GAME_GAMEID_EXPR = BASE + "/game/name";
-	private static final String GAME_NAME_EXPR = BASE + "/game/description";
-	private static final String GAME_DESCRIPTION_EXPR = BASE + "/game/gamemaster";
-	private static final String GAME_GAMECODE_EXPR = BASE + "/game/code";
-	private static final String GAME_LOCKED_EXPR = BASE + "/game/locked";
-	private static final String GAME_ENDTIME_EXPR = BASE + "/game/start_time";
-	private static final String GAME_START_EXPR = BASE + "/game/end_time";
+	// User Login
+	private static final String USERLOGIN_AUTHRESULT_EXPR = BASE + "/LoginResult/LoginAuth";
+	private static final String USERLOGIN_ID_EXPR         = BASE + "/LoginResult/player_id";
+	private static final String USERLOGIN_NAME_EXPR       = BASE + "/LoginResult/name";
+	
+	// Game
+	private static final String GAME_LIST_EXPR        = "ScavengerScram/game";
+	private static final String GAME_GAMEID_EXPR      = "//game_id";
+	private static final String GAME_NAME_EXPR        = "//name";
+	private static final String GAME_DESCRIPTION_EXPR = "//description";
+	private static final String GAME_GAMECODE_EXPR    = "//code";
+	private static final String GAME_LOCKED_EXPR      = "//locked";
+	private static final String GAME_ENDTIME_EXPR     = "//start_time";
+	private static final String GAME_START_EXPR       = "//end_time";
+	
+	// Player
+	private static final String PLAYER_PLAYERID_EXPR  = BASE + "/CreatePlayer/player_id";
+	// Clue
+	
+	
+	// Answer
 	
 	public static Date timestampToDate(String s)
 	{
@@ -38,21 +54,43 @@ public class ScavengerScramParseUtil
 		return null;
 	}
 	
-	public static Game toGame(String xml) throws XPathExpressionException
+	public static List<Game> parseToGames(String xml)
 	{
-		String gameIdStr = parseQuietly(xml,GAME_GAMEID_EXPR);		
+		List<Game> gameList = new ArrayList<Game>();
+		
+		try 
+		{
+			XPath xpath = XPathFactory.newInstance().newXPath();
+			NodeList nodes = (NodeList) xpath.evaluate(GAME_LIST_EXPR, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+			
+			for(int i = 0; i < nodes.getLength(); i++) gameList.add(toGame(nodes.item(i)));
+		} 
+		catch (XPathExpressionException e) {}
+		
+		return gameList;
+	}
+	
+	private static Game toGame(Node node) throws XPathExpressionException
+	{
+		String gameIdStr = parseQuietly(node,GAME_GAMEID_EXPR);		
 		Integer gameId = -1;
 		
 		try{ gameId = Integer.parseInt(gameIdStr);}
 		catch(NumberFormatException e){/*IGNORE*/}
 		
 		return new Game(gameId, 
-				parseQuietly(xml,GAME_NAME_EXPR),
-				parseQuietly(xml,GAME_DESCRIPTION_EXPR), 
-				parseQuietly(xml,GAME_GAMECODE_EXPR), 
-				Boolean.parseBoolean(parseQuietly(xml,GAME_LOCKED_EXPR)), 
-				timestampToDate(parseQuietly(xml, GAME_START_EXPR)), 
-				timestampToDate(parseQuietly(xml, GAME_ENDTIME_EXPR)));		
+				parseQuietly(node,GAME_NAME_EXPR),
+				parseQuietly(node,GAME_DESCRIPTION_EXPR), 
+				parseQuietly(node,GAME_GAMECODE_EXPR), 
+				Boolean.parseBoolean(parseQuietly(node,GAME_LOCKED_EXPR)), 
+				timestampToDate(parseQuietly(node, GAME_START_EXPR)), 
+				timestampToDate(parseQuietly(node, GAME_ENDTIME_EXPR)));		
+	}
+	
+	public static String parseQuietly(Node node, String expr)
+	{
+		try {return (String) XPathFactory.newInstance().newXPath().evaluate(expr, node, XPathConstants.STRING);} 
+		catch (XPathExpressionException e) {return "";}
 	}
 	
 	public static String parseQuietly(String xml, String expr)
@@ -61,6 +99,13 @@ public class ScavengerScramParseUtil
 		catch (XPathExpressionException e) {return "";}
 	}
 	
+	/**
+	 * Parse XML 
+	 * 
+	 * @param xml
+	 * @return
+	 * @throws XPathExpressionException
+	 */
 	public static UserLogin toUserLogin(String xml) throws XPathExpressionException
 	{
 		String playerIdStr = parseQuietly(xml,USERLOGIN_ID_EXPR);		
@@ -77,7 +122,20 @@ public class ScavengerScramParseUtil
 		return login;	
 	}
 	
-	public static UserLogin toPlayer(String xml) throws XPathExpressionException
-	{return null;	}
+	/**
+	 * Method to parse player ID from XML
+	 * 
+	 * 		<CreatePlayer>
+	 * 			<player_id>1234</player_id>
+	 * 		</CreatePlayer>
+	 * 
+	 * @param xml
+	 * @return
+	 * @throws XPathExpressionException
+	 */
+	public static String parsePlayerID(String xml) throws XPathExpressionException
+	{
+		return parseQuietly(xml, PLAYER_PLAYERID_EXPR);
+	}
 
 }
