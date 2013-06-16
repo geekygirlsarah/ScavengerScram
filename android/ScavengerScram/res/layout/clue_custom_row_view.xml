@@ -3,13 +3,13 @@
  android:orientation="vertical" 
  android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-  <TextView android:id="@+id/gameName"
+  <TextView android:id="@+id/clueTitle"
   android:textSize="18sp" 
   android:textStyle="bold" 
   android:textColor="#000000" 
   android:layout_width="wrap_content" 
   android:layout_height="wrap_content"/>
- <TextView android:id="@+id/gameDescription" 
+ <TextView android:id="@+id/clueDescription" 
   android:textSize="18sp"
   android:layout_width="wrap_content" 
   android:layout_height="wrap_content"/>
