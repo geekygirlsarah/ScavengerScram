@@ -1,9 +1,11 @@
 package com.terrorbytes.scavengerscram.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Game {
-  private int gameId;
+public class Game implements Serializable{
+private static final long serialVersionUID = -8410075313661737509L;
+private int gameId;
 	private String name;
 	private String description;
 	private String gameCode;

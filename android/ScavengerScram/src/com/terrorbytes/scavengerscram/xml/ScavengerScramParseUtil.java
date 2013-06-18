@@ -289,7 +289,7 @@ public class ScavengerScramParseUtil
 	
 	public static boolean parseForResult(String xml, String expr, String expected)
 	{
-		return parseQuietly(xml, expr).trim().equalsIgnoreCase(expected);
+		return parseQuietly(xml, expr).trim().toUpperCase().contains(expected.toUpperCase());
 	}
 	
 	public static Game parseShortCodeForGame(String xml)

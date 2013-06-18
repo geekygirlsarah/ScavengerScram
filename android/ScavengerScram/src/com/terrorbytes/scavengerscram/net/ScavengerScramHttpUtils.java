@@ -1,11 +1,15 @@
 package com.terrorbytes.scavengerscram.net;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.protocol.HTTP;
+
+import android.graphics.Bitmap;
+import android.util.Base64;
 
 /**
  * Utility for HTTP requests
@@ -48,6 +52,14 @@ public class ScavengerScramHttpUtils
 		
 		return sb.deleteCharAt(0).toString();
 	}
-
+	
+	public static String convertToBase64(Bitmap bitmap)
+	{		
+		// Encode bitmap to String
+		ByteArrayOutputStream bao = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bao);
+		return Base64.encodeToString(bao.toByteArray(), Base64.DEFAULT);
+	}
+	
 }
 

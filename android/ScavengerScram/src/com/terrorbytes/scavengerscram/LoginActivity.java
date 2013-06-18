@@ -9,6 +9,7 @@ import javax.xml.xpath.XPathExpressionException;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.terrorbytes.scavengerscram.model.UserLogin;
 import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 import com.terrorbytes.scavengerscram.ScavengerScramConstants;
 
@@ -53,6 +54,8 @@ public class LoginActivity extends Activity
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	
+	UserLogin loginResult;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,7 @@ public class LoginActivity extends Activity
 	public void saveResults() {
 		Intent intent = getIntent();
 		intent.putExtra(IntentConstants.USERNAME, mEmail);
+		intent.putExtra(IntentConstants.USER_OBJ, loginResult);
 		setResult(1, intent);
 	}
 
@@ -227,10 +231,13 @@ public class LoginActivity extends Activity
 
 			if(response == null) return false;
 
-			try {valid = ScavengerScramParseUtil.toUserLogin(response).isValid();} 
+			LoginActivity.this.loginResult = new UserLogin();
+			
+			try { loginResult = ScavengerScramParseUtil.toUserLogin(response);
+					valid = loginResult.isValid();} 
 			catch (XPathExpressionException e) {}
 			
-			return Boolean.valueOf(valid);
+			return Boolean.valueOf( valid );
 		}
 
 		@Override

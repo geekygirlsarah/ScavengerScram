@@ -1,9 +1,15 @@
 package com.terrorbytes.scavengerscram.model;
 
+import java.io.Serializable;
+
 import android.annotation.SuppressLint;
 
-public class UserLogin 
+public class UserLogin  implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -312500951829827145L;
 	private int id;
 	private String name;
 	private String authResult;

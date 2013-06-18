@@ -6,5 +6,6 @@ public class ScavengerScramConstants
 	public static final String LOGIN_COMMAND = "login";
 	public static final String GAMES_COMMAND = "games";
 	public static final String CLUES_COMMAND = "clues";
+	public static final String ANSWER_COMMAND= "answer";
 
 }
