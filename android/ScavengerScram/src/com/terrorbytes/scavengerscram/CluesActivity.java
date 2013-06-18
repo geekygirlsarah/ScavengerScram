@@ -25,16 +25,14 @@ import android.widget.Toast;
 
 import com.terrorbytes.scavengerscram.model.Clue;
 import com.terrorbytes.scavengerscram.model.Game;
-import com.terrorbytes.scavengerscram.model.UserLogin;
 import com.terrorbytes.scavengerscram.net.ScavengerScramHttpUtils;
 import com.terrorbytes.scavengerscram.xml.ScavengerScramParseUtil;
 
-public class CluesActivity extends Activity 
+public class CluesActivity extends SessionManagedActivity 
 {
 	private int gameId;
-	private Game game;
+	private Game mGame;
 	private Clue selectedClue;
-	private UserLogin userBean;
 	
 	// Photo
 	private static final int TAKE_PICTURE = 0;
@@ -51,15 +49,12 @@ public class CluesActivity extends Activity
 		
 		// Set content view
 		setContentView(R.layout.activity_clues);
-				
-		// Get game ID from intent
-		this.gameId = getIntent().getIntExtra(IntentConstants.GAME_ID, -1);
 		
 		// Get Game from intent
-		this.game = (Game) getIntent().getSerializableExtra(IntentConstants.GAME_OBJ);
+		this.mGame = (Game) getIntent().getSerializableExtra(IntentConstants.GAME_OBJ);
 		
-		// Get Game from intent
-		this.userBean = (UserLogin) getIntent().getSerializableExtra(IntentConstants.USER_OBJ);
+		// Get Session
+		this.mSession = new SessionManager(getApplicationContext());
 		
 		// Get ListView
 		this.lv1 = (ListView) findViewById(R.id.clueList);
@@ -87,6 +82,7 @@ public class CluesActivity extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
+		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.clues, menu);
 		return true;
 	}
@@ -97,8 +93,8 @@ public class CluesActivity extends Activity
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode == TAKE_PICTURE && resultCode == Activity.RESULT_OK)
         {
-	        getContentResolver().notifyChange(mUri, null);
 	        ContentResolver cr = getContentResolver();
+	        cr.notifyChange(mUri, null);
 	        try 
 	        {
 	        	mPhoto = android.provider.MediaStore.Images.Media.getBitmap(cr, mUri);
@@ -115,12 +111,8 @@ public class CluesActivity extends Activity
 	
 	public void getClues()
 	{
-		
-		if(true) // Add checks
-		{
-			GetCluesTask getCluesTask = new GetCluesTask();
-			getCluesTask.execute(Integer.valueOf(this.gameId));
-		}
+		GetCluesTask getCluesTask = new GetCluesTask();
+		getCluesTask.execute(Integer.valueOf(this.gameId));
 	}
 	
 	private class GetCluesTask extends HttpRequestTask<Integer, Void, List<Clue>>
@@ -160,8 +152,8 @@ public class CluesActivity extends Activity
 			try 
 			{
 				List<NameValuePair> loginParams = new ArrayList<NameValuePair>();
-				loginParams.add(new BasicNameValuePair("player", userBean.getId() + ""));
-				loginParams.add(new BasicNameValuePair("game", "1"));
+				loginParams.add(new BasicNameValuePair("player", mSession.getUserLogin().getId() + ""));
+				loginParams.add(new BasicNameValuePair("game", mGame.getGameCode()));
 				loginParams.add(new BasicNameValuePair("clue", selectedClue.getClueNumber() + ""));
 				loginParams.add(new BasicNameValuePair("file", ScavengerScramHttpUtils.convertToBase64(mPhoto)));
 				loginParams.add(new BasicNameValuePair("command", ScavengerScramConstants.ANSWER_COMMAND));

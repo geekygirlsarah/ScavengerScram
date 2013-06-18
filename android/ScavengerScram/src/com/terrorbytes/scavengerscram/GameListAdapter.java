@@ -26,7 +26,7 @@ public class GameListAdapter extends BaseAdapter
 	  return (games != null) ? games.size() : 0;
 	 }
 
-	 public Object getItem(int position) {
+	 public Game getItem(int position) {
 	  return games.get(position);
 	 }
 

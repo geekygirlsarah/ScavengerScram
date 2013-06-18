@@ -1,19 +1,17 @@
 package com.terrorbytes.scavengerscram;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-public class JoinActivity extends Activity {
-	//public final static String GAME_CODE = "GAME_CODE";
-	
-	TextView codeEditText;
-	TextView playerNameEditText;
-	String code;
-	String playerName;
+public class JoinActivity extends SessionManagedActivity
+{	
+	private TextView codeEditText;
+	private TextView playerNameEditText;
+	private String code;
+	private String playerName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

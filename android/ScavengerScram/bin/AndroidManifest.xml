@@ -25,14 +25,24 @@
             android:windowSoftInputMode="adjustResize|stateVisible">  			
         </activity>
         
+        <activity
+            android:name="com.terrorbytes.scavengerscram.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
         <activity 
             android:name="com.terrorbytes.scavengerscram.JoinActivity" 
             android:label="@string/app_name"
-			android:parentActivityName="com.terrorbytes.scavengerscram.MainActivity" >
-            
+			android:parentActivityName="com.terrorbytes.scavengerscram.MainActivity">
+			            
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.terrorbytes.scavengerscram.MainActivity" /> 
+                android:value="com.terrorbytes.scavengerscram.MainActivity" />
+            
         </activity>
         
         <activity
@@ -43,15 +53,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.terrorbytes.scavengerscram.MainActivity" />
-        </activity>
-        
-        <activity
-            android:name="com.terrorbytes.scavengerscram.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         
     </application>
